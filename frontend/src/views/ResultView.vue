@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, onBeforeMount } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import axios from 'axios' 
 import pagination from "../components/Pagination.vue"
@@ -14,7 +14,7 @@ const tables = reactive({
 })
 
 // 現在地を受け取って，マウント時に一覧の情報を取得
-onBeforeMount(() => {
+onMounted(() => {
   // 店一覧のjsonを受け取る? それともデータ量だけまず？
   // 緯度，経度，rangeを渡す（数字の処理はバックエンドで）
   // 長さが1つのときはundefined? 0のときの処理は？
