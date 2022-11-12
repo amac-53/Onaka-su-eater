@@ -46,5 +46,5 @@ const getDetail = onMounted(() => {
     <p>
         営業時間: {{info.time}}
     </p>
-    <img :src="info.img_url" alt="代替">
+    <img :src="info.img_url" alt="NoImage">
 </template>

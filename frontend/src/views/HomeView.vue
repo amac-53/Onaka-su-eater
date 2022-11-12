@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import { ref, reactive, computed } from "vue";
 import { useRouter, useRoute } from 'vue-router';
 import axios from "axios";
 
@@ -14,18 +14,15 @@ const range = ref(0)
 const getResult = async(e) => {
     // 現在地を取得
     await navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-    // 値を渡してページ遷移と同時に値渡し（現在地と半径）
-    // とりあえず34.910047, 135.7805467, 100
-    latitude.value = 34.910047;
-    longitude.value = 135.7805467;
-    range.value = 3000;
-    
-    router.push({path: '/result', query: {latitude: latitude.value, longitude: longitude.value, range: range.value}})
+    const selectEl = document.getElementById("selectDistance");
+    range.value = selectEl.options[selectEl.selectedIndex].value;
 }
 
 const successCallback = (position) => {
   latitude.value = position.coords.latitude;
   longitude.value = position.coords.longitude;
+  // たぶんほんまはよくない（後で検討）
+  router.push({path: '/result', query: {latitude: latitude.value, longitude: longitude.value, range: range.value}})
 };
 
 const errorCallback = (error) => {
@@ -39,18 +36,16 @@ const errorCallback = (error) => {
   <main>
   <p>
     <label for="tmp">現在地からの何m以内までで検索しますか？</label>
-    <select name="" id="tmp" required>
-      <option value="">300m</option>
-      <option value="">500m</option>
-      <option value="">1000m</option>
-      <option value="">2000m</option>
-      <option value="">3000m</option>
+    <select name="" id="selectDistance" required>
+      <option value="300">300m</option>
+      <option value="500">500m</option>
+      <option value="1000">1000m</option>
+      <option value="2000">2000m</option>
+      <option value="3000">3000m</option>
     </select>
   </p>
   <p>
     <button @click="getResult">検索</button>
   </p>
-  <div>{{ latitude }}</div>
-  <div>{{ longitude }}</div>
   </main>
 </template>

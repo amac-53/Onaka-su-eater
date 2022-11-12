@@ -10,7 +10,7 @@ const route = useRoute()
 // リストで受け取る
 const tables = reactive({
   items: [],
-  num: 5
+  num: 10
 })
 
 // 現在地を受け取って，マウント時に一覧の情報を取得
@@ -22,7 +22,8 @@ onMounted(() => {
   const latitude = '?latitude=' + route.query.latitude
   const longitude = 'longitude=' + route.query.longitude
   const range = 'range=' + route.query.range
-  const url = base_url + latitude + '&' + longitude + '&' + range
+  const count = 'count=100'
+  const url = base_url + latitude + '&' + longitude + '&' + range + '&' + count 
   axios.get(url)
   .then(res => {
     // console.log(url);
@@ -34,24 +35,10 @@ onMounted(() => {
   }) 
 });
 
-// const getData = () => {
-//   const url = 'api/users?page=ページ番号' // みたいな
-//   axios.get(url)
-//   .then(res => {
-//     console.log(res);
-//   }) 
-//   .catch(error => {
-//     console.log(error);
-//   })
-// }
 </script>
 
 <template>
 <div class="paging">
-  <!-- {{tables.items}} -->
-  <!-- データ取得 -> paginationにする -->
-  <!--  -->
   <pagination :items="tables.items" :itemNumPerPage="tables.num" />
-  <!-- {{tables.items}} ok -->
 </div>
 </template>
