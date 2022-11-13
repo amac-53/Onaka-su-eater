@@ -15,7 +15,6 @@ const tables = reactive({
 
 // 現在地を受け取って，マウント時に一覧の情報を取得
 onMounted(() => {
-  // 店一覧のjsonを受け取る? それともデータ量だけまず？
   // 緯度，経度，rangeを渡す（数字の処理はバックエンドで）
   // 長さが1つのときはundefined? 0のときの処理は？
   const base_url = 'http://127.0.0.1:8000/items/'

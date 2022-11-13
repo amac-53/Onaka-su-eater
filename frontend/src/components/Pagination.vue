@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref, reactive, computed, onMounted } from 'vue';
+import { routeLocationKey, useRouter, useRoute } from 'vue-router';
+import { RouterLink, RouterView } from 'vue-router';
 import Item from '@/components/Item.vue';
 import PageButton from '@/components/PageButton.vue';
-import { routeLocationKey, useRouter, useRoute } from 'vue-router';
-import { RouterLink, RouterView } from 'vue-router'
+import ListItem from '@/components/ListItem.vue';
 
 
 const props = defineProps<{items: Array, itemNumPerPage: Number}>();
@@ -15,7 +16,7 @@ const route = useRoute()
 const curPage = ref(1);
 const pageNum = ref(1);
 
-// // 表示する店の数
+// 表示する店の数
 const displayItems = computed(() => {
     const startIdx = (curPage.value - 1) * props.itemNumPerPage;
     const endIdx   = startIdx + props.itemNumPerPage;
@@ -24,7 +25,7 @@ const displayItems = computed(() => {
     return props.items.slice(startIdx, endIdx);
 });
 
-// // ページ遷移
+// ページ遷移
 const changePage = (v) => {
     curPage.value = v;
 };
@@ -39,14 +40,11 @@ const calcPageNum  = computed(() => {
 </script>
 
 <template>
-  <!-- {{itemNumPerPage}} -->
-  <!-- {{items}} -->
-  <ul class="item-list">    
-    <li v-for="item in displayItems">
-      <RouterLink :to="{ name: 'detail', params: {id: item.id } }">{{item.name}}</RouterLink>
-      <!-- <item  :itemName="item.name"/> -->
-    </li>
-  </ul>
+  <div v-for="item in displayItems" class="m-5">
+    <RouterLink :to="{ name: 'detail', params: {id: item.id } }" class="text-decoration-none text-reset">
+      <ListItem :name="item.name" :access="item.mobile_access" :thumbnail="item.photo.pc.l" :genre="item.genre.name" :catch="item.catch"/>
+    </RouterLink>
+  </div>
 
   <div class="page-button" :class="calcPageNum"> 
     <page-button
