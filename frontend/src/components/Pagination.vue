@@ -36,7 +36,6 @@ const calcPageNum  = computed(() => {
     console.log(pageNum.value)
     return props.itemNumPerPage
 });
-
 </script>
 
 <template>
@@ -46,7 +45,7 @@ const calcPageNum  = computed(() => {
     </RouterLink>
   </div>
 
-  <div class="page-button" :class="calcPageNum"> 
+  <div class="d-grid gap-2 d-md-flex justify-content-md-center" :class="calcPageNum">
     <page-button
     @changePage="changePage" v-for="n in pageNum" 
     :key="n"

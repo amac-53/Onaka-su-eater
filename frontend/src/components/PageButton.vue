@@ -13,9 +13,8 @@ const btmPressed = () => {
 </script>
 
 <template>
-    <div class="page-btn">
-        <button @click="btmPressed"
-            :class="{active: isCurrentPage}"
-        >{{ pageNumber }} </button>
-    </div>
+    <button class="btn btn-light btn-outline-dark"
+        @click="btmPressed"
+        :class="{active: isCurrentPage}"
+    >{{ pageNumber }} </button>
 </template>
