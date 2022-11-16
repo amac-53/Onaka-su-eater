@@ -26,7 +26,7 @@ onMounted(() => {
   axios.get(url)
   .then(res => {
     // console.log(url);
-    console.log(res.data.results.shop)
+    console.log(res.data)
     tables.items = res.data.results.shop;
   })
   .catch(error => {
