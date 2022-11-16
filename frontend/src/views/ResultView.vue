@@ -37,7 +37,7 @@ onMounted(() => {
 </script>
 
 <template>
-<div class="paging">
+<div class="p-5">
   <pagination :items="tables.items" :itemNumPerPage="tables.num" />
 </div>
 </template>
