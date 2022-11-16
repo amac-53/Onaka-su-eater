@@ -41,7 +41,7 @@ const getDetail = onMounted(() => {
 
 <template>
     <!-- 店舗名など -->
-    <div class="container mb-5">
+    <div class="container pt-5 my-5">
     <div class="row justify-content-center">
         <div class="card bg-white" style="max-width: 600px;">
             <div class="row g-0">

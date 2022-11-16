@@ -3,11 +3,14 @@ import { RouterLink } from 'vue-router';
 </script>
 
 <template>
-    <header>
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
+    <header class="fixed-top">
+      <nav class="navbar navbar-light bg-dark">
+        <div class="container-fluid">
+        <RouterLink class="text-white navbar-brand" to="/">
+          <img src="/src/logo.svg" alt="">
+            Onaka-su-eater
+        </RouterLink>
+        </div>
       </nav>
-    </div>
   </header>
 </template>

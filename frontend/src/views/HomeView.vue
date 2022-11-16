@@ -34,7 +34,7 @@ const errorCallback = (error) => {
 
 <template>
   <main>
-    <div class="container">
+    <div class="container m-5 pt-5">
     <div class="row justify-content-center">
       <div class="card bg-white" style="max-width: 600px;">
           <div class="card-body">
