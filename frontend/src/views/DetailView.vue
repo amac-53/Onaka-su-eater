@@ -25,10 +25,10 @@ const getDetail = onMounted(() => {
     axios.get(url)
         .then(res => {
             shop.info = res.data.results.shop[0];
-            shop.genre = res.data.results.shop.genre;
-            shop.img = res.data.results.shop.photo.pc;
-            shop.budget = res.data.results.shop.budget;
-            shop.url = res.data.results.shop.urls;
+            shop.genre = res.data.results.shop[0].genre;
+            shop.img = res.data.results.shop[0].photo.pc;
+            shop.budget = res.data.results.shop[0].budget;
+            shop.url = res.data.results.shop[0].urls;
             console.log(shop.info)
         })
         .catch(error => {
@@ -50,7 +50,7 @@ const getDetail = onMounted(() => {
                 </div>
                 <div class="col-md-8">
                     <div class="card-header">
-                        <!-- <div class="fs-6">{{shop.genre.name }}</div>       -->
+                        <div class="fs-6">{{shop.genre.name }}</div>      
                         <div class="card-title fs-3">{{ shop.info.name }}</div>
                         <div>{{ shop.info.access }}</div>
                     </div>

@@ -21,7 +21,7 @@ const getResult = async(e) => {
 const successCallback = (position) => {
   latitude.value = position.coords.latitude;
   longitude.value = position.coords.longitude;
-  // たぶんほんまはよくない（後で検討）
+  // 当面の対応（後で修正）
   router.push({path: '/result', query: {latitude: latitude.value, longitude: longitude.value, range: range.value}})
 };
 
@@ -34,18 +34,30 @@ const errorCallback = (error) => {
 
 <template>
   <main>
-  <p>
-    <label for="tmp">現在地からの何m以内までで検索しますか？</label>
-    <select name="" id="selectDistance" required>
-      <option value="300">300m</option>
-      <option value="500">500m</option>
-      <option value="1000">1000m</option>
-      <option value="2000">2000m</option>
-      <option value="3000">3000m</option>
-    </select>
-  </p>
-  <p>
-    <button @click="getResult">検索</button>
-  </p>
+    <div class="container">
+    <div class="row justify-content-center">
+      <div class="card bg-white" style="max-width: 600px;">
+          <div class="card-body">
+            <p class="row g-0">
+              <div class="text-center">
+                <label for="selectDistance">現在地から何m以内までで検索しますか？</label>
+              </div>
+            </p>
+            <p class="row g-0">
+              <select name="" id="selectDistance" required>
+                <option value="300">300m</option>
+                <option value="500">500m</option>
+                <option value="1000">1000m</option>
+                <option value="2000">2000m</option>
+                <option value="3000">3000m</option>
+              </select>
+            </p>
+            <p class="row g-0">
+              <button type="button" class="btn btn-secondary" @click="getResult">検索</button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 </template>
