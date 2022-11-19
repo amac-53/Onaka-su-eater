@@ -23,7 +23,7 @@ app.add_middleware(
 )
 
 @app.get("/")
-async def root():
+async def tmp():
     return {"message": "Hello World"}
 
 

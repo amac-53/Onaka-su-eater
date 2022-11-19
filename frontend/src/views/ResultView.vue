@@ -17,7 +17,7 @@ const tables = reactive({
 onMounted(() => {
   // 緯度，経度，rangeを渡す（数字の処理はバックエンドで）
   // 長さが1つのときはundefined? 0のときの処理は？
-  const base_url = 'http://127.0.0.1:8000/items/'
+  const base_url = 'http://127.0.0.1:8080/items/'
   const latitude = '?latitude=' + route.query.latitude
   const longitude = 'longitude=' + route.query.longitude
   const range = 'range=' + route.query.range

@@ -14,7 +14,7 @@ const shop = ref({});
 // idに一致する詳細情報を取得
 const getDetail = onMounted(() => {
 
-    const base_url = 'http://127.0.0.1:8000/items/detail/'
+    const base_url = 'http://127.0.0.1:8080/items/detail/'
     const id = '?id=' + route.params.id
     const url = base_url + id
     axios.get(url)
