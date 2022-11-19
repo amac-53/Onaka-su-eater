@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRouter, useRoute } from 'vue-router';
+import { useRouter, useRoute, RouterLink } from 'vue-router';
 import axios from 'axios';
 import { isRef, onMounted, reactive, ref, watch } from 'vue';
 import DetailMap from '@/components/DetailMap.vue';
@@ -50,21 +50,20 @@ const getDetail = onMounted(() => {
                     </div>
                 </div>
             </div>
-            <!-- リンク -->
-            <nav class="nav nav-pills flex-column flex-sm-row bg-light">
-                <RouterLink :to="{ name: 'detail', params: {id: route.params.id }}" class="flex-sm-fill text-sm-center nav-link active bg-dark" aria-current="page">Top</RouterLink>
-                <RouterLink :to="{ name: 'detail_map', params: {id: route.params.id }}" class="flex-sm-fill text-sm-center nav-link text-dark">地図</RouterLink>
+            <nav class="nav nav-pills flex-column flex-sm-row bg-light p-0">
+                <RouterLink :to="{ name: 'detail', params: {id: route.params.id }}" class="flex-sm-fill text-sm-center nav-link text-dark">Top</RouterLink>
+                <RouterLink :to="{ name: 'detail_map', params: {id: route.params.id }}" class="flex-sm-fill text-sm-center nav-link active bg-dark" aria-current="page">地図</RouterLink>
             </nav>
         </div>
     </div>
-
-    <!-- 画像 -->
+    
+    <!-- 地図 -->
     <div class="container mb-5" style="max-width: 600px;">
-        <div v-if="shop.photo" class="row justify-content-center">
-            <img :src="shop.photo.pc.l" alt="" >
-        </div> 
+        <div class="row justify-content-center" >
+            <DetailMap :lat="shop.lat" :lng="shop.lng" />
+        </div>
     </div>
-
+    
     <!-- 詳細情報 -->
     <div class="container">
         <div class="row justify-content-center fw-bold">
@@ -112,81 +111,5 @@ const getDetail = onMounted(() => {
                 </tbody>
             </table>
         </div> 
-
-        <div class="row justify-content-center fw-bold">
-            席・設備
-        </div>
-        <div class="row justify-content-center mb-5">
-            <table class="table table-bordered" style="max-width: 600px;">
-                <tbody>
-                    <tr v-if="shop.capacity">
-                        <th scope="row">席数</th>
-                        <td>{{shop.capacity}}</td>
-                    </tr>
-                    <tr v-if="shop.private_room">
-                        <th scope="row">個室</th>
-                        <td>{{shop.private_room}}</td>
-                    </tr>
-                    <tr v-if="shop.charter">
-                        <th scope="row">貸切</th>
-                        <td>{{shop.charter}}</td>
-                    </tr>
-                    <tr v-if="shop.non_smoking">
-                        <th scope="row">たばこ</th>
-                        <td>{{shop.non_smoking}}</td>
-                    </tr>
-                    <tr v-if="shop.wifi">
-                        <th scope="row">Wi-Fi</th>
-                        <td>{{shop.wifi}}</td>
-                    </tr>
-                    <tr v-if="shop.barrier_free">
-                        <th scope="row">バリアフリー</th>
-                        <td>{{shop.barrier_free}}</td>
-                    </tr>
-                    <tr v-if="shop.parking">
-                        <th scope="row">駐車場</th>
-                        <td>{{shop.parking}}</td>
-                    </tr>
-                    <tr v-if="shop.other_memo">
-                        <th scope="row">その他の設備</th>
-                        <td>{{shop.other_memo}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="row justify-content-center fw-bold">
-            その他
-        </div>
-        <div class="row justify-content-center mb-5">
-            <table class="table table-bordered" style="max-width: 600px;">
-                <tbody>
-                    <tr v-if="shop.free_drink">
-                        <th scope="row">飲み放題</th>
-                        <td>{{shop.free_drink}}</td>
-                    </tr>
-                    <tr v-if="shop.free_food">
-                        <th scope="row">食べ放題</th>
-                        <td>{{shop.free_food}}</td>
-                    </tr>
-                    <tr v-if="shop.child">
-                        <th scope="row">お子様連れ</th>
-                        <td>{{shop.child}}</td>
-                    </tr>
-                    <tr v-if="shop.pet">
-                        <th scope="row">ペット可</th>
-                        <td>{{shop.pet}}</td>
-                    </tr>
-                    <tr v-if="shop.wedding">
-                        <th scope="row">ウェディングパーティー二次会</th>
-                        <td>{{shop.wedding}}</td>
-                    </tr>
-                    <tr v-if="shop.shop_detail_memo">
-                        <th scope="row">備考</th>
-                        <td>{{shop.shop_detail_memo}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
     </div>
 </template>
