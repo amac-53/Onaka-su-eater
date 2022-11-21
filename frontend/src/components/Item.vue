@@ -5,9 +5,7 @@ defineProps<{itemName: String}>()
 
 
 <template>
-    <!-- ここで何か箱型のデザインにしておく -->
     <div class="items">
         {{ ItemName }}
     </div>
-    <!-- https://qiita.com/JunNishimura/items/e0bbd03cdb627df04261 -->
 </template>

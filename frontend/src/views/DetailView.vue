@@ -20,7 +20,6 @@ const getDetail = onMounted(() => {
     axios.get(url)
         .then(res => {
             shop.value = res.data.results.shop[0]
-            console.log(shop.value)
         })
         .catch(error => {
             console.log(error)

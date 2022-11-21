@@ -2,13 +2,21 @@
 import { RouterLink, RouterView } from 'vue-router'
 import AppHeader from './components/AppHeader.vue';
 import AppFooter from './components/AppFooter.vue';
+import { ref } from 'vue'
+
+// emitでとりあえず受け取るための変数
+const tmp_receiver = ref('')
+
+const onChange = (val?: string) => {
+  tmp_receiver.value = val
+}
 </script>
 
 <template>
 <div class="outer-wrapper">
-  <AppHeader />
+  <AppHeader @change="onChange" />
   <div class="inner-wrapper">
-  <RouterView />
+  <RouterView :val="tmp_receiver"/>
   </div>
   <AppFooter />
 </div>

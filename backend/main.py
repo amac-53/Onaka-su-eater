@@ -28,7 +28,7 @@ async def tmp():
 
 
 @app.get("/items/")
-async def get_items(latitude: float = 0, longitude: float = 0, range: int = 1, count: int = 100):
+async def get_items(latitude: float = 0, longitude: float = 0, range: int = 1, count: int = 100, order: int = 0):
     """
     現在地付近の店の情報を全て返す
     range: 現在地からの距離
@@ -46,6 +46,10 @@ async def get_items(latitude: float = 0, longitude: float = 0, range: int = 1, c
     'count': str(count),
     'format': 'json'
     }
+
+    # 指定があればおすすめ順のクエリを追加
+    if order == 4:
+        query['order'] = str(order)
 
     res = requests.get(base_url, query)
     return res.json()
