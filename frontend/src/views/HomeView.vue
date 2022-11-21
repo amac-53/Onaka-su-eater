@@ -28,8 +28,6 @@ const successCallback = (position) => {
 const errorCallback = (error) => {
   alert("位置情報が取得できませんでした");
 };
-
-
 </script>
 
 <template>
