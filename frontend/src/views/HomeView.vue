@@ -10,6 +10,8 @@ const latitude = ref(0)
 const longitude = ref(0)
 const range = ref(0)
 
+const keyword = ref("");
+
 // 検索結果を表示
 const getResult = async(e) => {
     // 現在地を取得
@@ -22,38 +24,45 @@ const successCallback = (position) => {
   latitude.value = position.coords.latitude;
   longitude.value = position.coords.longitude;
   // 当面の対応（後で修正）
-  router.push({path: '/result', query: {latitude: latitude.value, longitude: longitude.value, range: range.value}})
+  console.log(keyword)
+  router.push({path: '/result', query: {latitude: latitude.value, longitude: longitude.value, range: range.value, keyword: keyword.value}})
 };
 
 const errorCallback = (error) => {
   alert("位置情報が取得できませんでした");
 };
+
 </script>
 
 <template>
   <main>
-    <div class="container m-5 pt-5">
-    <div class="row justify-content-center">
-      <div class="card bg-white" style="max-width: 600px;">
-          <div class="card-body">
-            <p class="row g-0">
-              <div class="text-center">
-                <label for="selectDistance">現在地から何m以内までで検索しますか？</label>
+    <div class="d-flex justify-content-center m-5 p-5 fs-3">
+        現在地近くのお店を探しましょう
+    </div>
+    <div class="d-flex justify-content-center pb-5">
+      <div class="card bg-white" style="width: 800px;">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              キーワード
+              <div class="input-group mb-3">
+                <input type="text" v-model="keyword" class="form-control form-control-lg" placeholder="店名・ジャンルなど">
               </div>
-            </p>
-            <p class="row g-0">
-              <select name="" id="selectDistance" required>
+            </div>
+            <div class="col">
+              現在地からの距離
+              <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="selectDistance" required>
                 <option value="300">300m</option>
                 <option value="500">500m</option>
                 <option value="1000">1000m</option>
                 <option value="2000">2000m</option>
                 <option value="3000">3000m</option>
               </select>
-            </p>
-            <p class="row g-0">
-              <button type="button" class="btn btn-secondary" @click="getResult">検索</button>
-            </p>
+            </div>
           </div>
+          <p class="row g-0">
+            <button type="button" class="btn btn-secondary" @click="getResult">検索</button>
+          </p>
         </div>
       </div>
     </div>
