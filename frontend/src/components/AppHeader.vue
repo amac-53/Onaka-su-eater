@@ -17,7 +17,7 @@ const onChange = (selected?: string): void => {
 </script>
 
 <template>
-  <header class="fixed-top">
+  <header class="sticky-top">
     <div class="container-fluid bg-dark">
       <div class="row justify-content-between">
         <div class="col-4">

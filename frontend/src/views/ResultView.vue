@@ -18,15 +18,15 @@ const tables = reactive({
 // 現在地を受け取って，マウント時に一覧の情報を取得
 watchEffect(() => {
   const base_url = 'http://127.0.0.1:8080/items/'
-  const latitude = '?latitude=' + route.query.latitude
+  const latitude = 'latitude=' + route.query.latitude
   const longitude = 'longitude=' + route.query.longitude
 
   const range = 'range=' + route.query.range
   const count = 'count=100'
   const order = 'order=' + props.val
-  console.log(order)
+  const kwd = 'keyword=' + route.query.keyword
 
-  const url = base_url + latitude + '&' + longitude + '&' + range + '&' + count 
+  const url = base_url + '?' +latitude + '&' + longitude + '&' + range + '&' + count + '&' + kwd 
   axios.get((order == 'order=4' ? url + '&' + order : url))
   .then(res => {
     const tmp = order == 'order=4' ? url + '&' + order : url

@@ -28,7 +28,7 @@ async def tmp():
 
 
 @app.get("/items/")
-async def get_items(latitude: float = 0, longitude: float = 0, range: int = 1, count: int = 100, order: int = 0):
+async def get_items(latitude: float = 0, longitude: float = 0, range: int = 1, count: int = 100, order: int = 0, keyword: str = ''):
     """
     現在地付近の店の情報を全て返す
     range: 現在地からの距離
@@ -44,6 +44,7 @@ async def get_items(latitude: float = 0, longitude: float = 0, range: int = 1, c
     'lng': str(longitude),
     'range': str(range_list[range]),
     'count': str(count),
+    'keyword': str(keyword),
     'format': 'json'
     }
 
@@ -56,7 +57,7 @@ async def get_items(latitude: float = 0, longitude: float = 0, range: int = 1, c
 
 
 @app.get("/items/detail/")
-async def get_items(id: str):
+async def get_an_item(id: str):
     """
     特定の店の情報を返す
     id: 店を一意に識別するid
