@@ -6,7 +6,7 @@ import Pagination from "../components/Pagination.vue";
 
 const route = useRoute();
 
-const props = defineProps(['val']);
+const props = defineProps(['value']);
 
 // 店舗一覧
 const items = ref<Array<object>>([]);
@@ -23,7 +23,7 @@ watchEffect(() => {
   const longitude = 'longitude=' + route.query.longitude;
   const range = 'range=' + route.query.range;
   const count = 'count=100';
-  const order = 'order=' + props.val;
+  const order = 'order=' + props.value;
   const kwd = 'keyword=' + route.query.keyword;
 
   const url = base_url + '?' +latitude + '&' + longitude + '&' + range + '&' + count + '&' + kwd;
@@ -47,12 +47,12 @@ watchEffect(() => {
 </div>
 <!-- 店舗が一つもなければ -->
 <div v-else class="p-5 m-5">
-  <div class="d-grid gap-2 d-md-flex justify-content-md-center m-5">
+  <div class="d-flex justify-content-center m-5">
     {{route.query.range}}m以内にお店はありません
   </div>
-  <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+  <div class="d-flex justify-content-center">
     <RouterLink to="/">
-      <button type="button" class="btn btn-secondary">homeに戻る</button>
+      <button type="button" class="btn text-white" style="background-color: rgb(247 147 6);">homeに戻る</button>
     </RouterLink>
   </div>
 </div>

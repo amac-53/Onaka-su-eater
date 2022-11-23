@@ -2,7 +2,10 @@
 import { useRoute } from 'vue-router';
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
- 
+
+// warning回避
+defineProps(["value"]);
+
 const route = useRoute();
 
 // 詳細情報を保持
@@ -48,7 +51,7 @@ onMounted(() => {
             </div>
             <!-- リンク -->
             <nav class="nav nav-pills flex-column flex-sm-row bg-light">
-                <RouterLink :to="{ name: 'detail', params: {id: route.params.id }}" class="flex-sm-fill text-sm-center nav-link active bg-dark" aria-current="page">Top</RouterLink>
+                <RouterLink :to="{ name: 'detail', params: {id: route.params.id }}" class="flex-sm-fill text-sm-center nav-link active" aria-current="page" style="background-color: rgb(247 147 6);">Top</RouterLink>
                 <RouterLink :to="{ name: 'detail_map', params: {id: route.params.id }}" class="flex-sm-fill text-sm-center nav-link text-dark">地図</RouterLink>
             </nav>
         </div>

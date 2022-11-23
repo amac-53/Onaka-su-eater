@@ -4,6 +4,9 @@ import axios from 'axios';
 import { onMounted, ref } from 'vue';
 import DetailMap from '@/components/DetailMap.vue';
  
+// warning回避
+defineProps(["value"]);
+
 const route = useRoute();
 
 // 詳細情報を保持
@@ -13,8 +16,8 @@ const shop = ref<object>({});
 const getDetail = onMounted(() => {
 
     const base_url: string = 'http://127.0.0.1:8080/items/detail/';
-    const id: string = '?id=' + route.params.id;
-    const url: string = base_url + id;
+    const id: string = 'id=' + route.params.id;
+    const url: string = base_url + '?' + id;
     axios.get(url)
         .then(res => {
             shop.value = res.data.results.shop[0];
@@ -49,7 +52,7 @@ const getDetail = onMounted(() => {
             </div>
             <nav class="nav nav-pills flex-column flex-sm-row bg-light p-0">
                 <RouterLink :to="{ name: 'detail', params: {id: route.params.id }}" class="flex-sm-fill text-sm-center nav-link text-dark">Top</RouterLink>
-                <RouterLink :to="{ name: 'detail_map', params: {id: route.params.id }}" class="flex-sm-fill text-sm-center nav-link active bg-dark" aria-current="page">地図</RouterLink>
+                <RouterLink :to="{ name: 'detail_map', params: {id: route.params.id }}" class="flex-sm-fill text-sm-center nav-link active" aria-current="page" style="background-color: rgb(247 147 6);">地図</RouterLink>
             </nav>
         </div>
     </div>

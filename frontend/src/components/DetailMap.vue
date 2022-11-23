@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { watch } from "vue";
 
-const props = defineProps<{lat: number, lng: number}>();
+const props = defineProps<{lat: Number, lng: Number}>();
 
 // 緯度・経度が変われば地図を描く
 watch(props, ()=>{
