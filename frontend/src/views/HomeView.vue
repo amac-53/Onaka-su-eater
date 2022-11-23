@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { useRouter } from 'vue-router';
+
+// warning回避
+defineProps(["value"]);
 
 const router = useRouter();
 
@@ -47,7 +50,7 @@ const errorCallback = (error: any) => {
             </div>
             <div class="col">
               現在地からの距離
-              <select v-model="range"  class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" required>
+              <select v-model="range" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" required>
                 <option value="300">300m</option>
                 <option value="500">500m</option>
                 <option value="1000">1000m</option>
@@ -57,7 +60,7 @@ const errorCallback = (error: any) => {
             </div>
           </div>
           <p class="row g-0">
-            <button type="button" class="btn btn-secondary" @click="getResult">検索</button>
+            <button type="button" class="btn text-white" style="background-color: rgb(247 147 6);" @click="getResult">検索</button>
           </p>
         </div>
       </div>

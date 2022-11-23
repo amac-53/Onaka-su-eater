@@ -38,7 +38,7 @@ const calcPageNum  = computed(() => {
     </RouterLink>
   </div>
 
-  <div class="d-grid gap-2 d-md-flex justify-content-md-center" :class="calcPageNum">
+  <div class="d-grid gap-2 d-flex justify-content-center" :class="calcPageNum">
     <PageButton
     @changePage="changePage" v-for="n in page_num" 
     :key="n"
