@@ -1,34 +1,30 @@
 <script setup lang="ts">
-import { ref, reactive, computed } from "vue";
-import { useRouter, useRoute } from 'vue-router';
-import axios from "axios";
+import { ref, computed } from "vue";
+import { useRouter } from 'vue-router';
 
-const router = useRouter()
-const route = useRoute()
+const router = useRouter();
 
-const latitude = ref(0)
-const longitude = ref(0)
-const range = ref(0)
+// 取得する情報
+const latitude = ref<number>(0);
+const longitude = ref<number>(0);
+const range = ref<number>(300);
+const keyword = ref<string>("");
 
-const keyword = ref("");
-
-// 検索結果を表示
-const getResult = async(e) => {
-    // 現在地を取得
-    await navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-    const selectEl = document.getElementById("selectDistance");
-    range.value = selectEl.options[selectEl.selectedIndex].value;
+  // 現在地を取得
+const getResult = () => {
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 }
 
-const successCallback = (position) => {
+// 成功時のコールバック関数
+const successCallback = (position: any) => {
   latitude.value = position.coords.latitude;
   longitude.value = position.coords.longitude;
-  // 当面の対応（後で修正）
-  console.log(keyword)
-  router.push({path: '/result', query: {latitude: latitude.value, longitude: longitude.value, range: range.value, keyword: keyword.value}})
+  //緯度・経度を受け取ったらページ遷移
+  router.push({path: '/result', query: {latitude: latitude.value, longitude: longitude.value, range: range.value, keyword: keyword.value}});
 };
 
-const errorCallback = (error) => {
+// 取得失敗の時の処理
+const errorCallback = (error: any) => {
   alert("位置情報が取得できませんでした");
 };
 
@@ -51,7 +47,7 @@ const errorCallback = (error) => {
             </div>
             <div class="col">
               現在地からの距離
-              <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="selectDistance" required>
+              <select v-model="range"  class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" required>
                 <option value="300">300m</option>
                 <option value="500">500m</option>
                 <option value="1000">1000m</option>

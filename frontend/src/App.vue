@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router';
 import AppHeader from './components/AppHeader.vue';
 import AppFooter from './components/AppFooter.vue';
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-// emitでとりあえず受け取るための変数
-const tmp_receiver = ref('')
+// emitでヘッダーからのソート順を受け取るための変数
+const tmp_receiver = ref<string>('');
 
-const onChange = (val?: string) => {
-  tmp_receiver.value = val
+const onChange = (val: string): void => {
+  tmp_receiver.value = val;
 }
 </script>
 
@@ -16,7 +16,7 @@ const onChange = (val?: string) => {
 <div class="outer-wrapper">
   <AppHeader @change="onChange" />
   <div class="inner-wrapper">
-  <RouterView :val="tmp_receiver"/>
+    <RouterView :value="tmp_receiver"/>
   </div>
   <AppFooter />
 </div>
