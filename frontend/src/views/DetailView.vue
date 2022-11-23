@@ -1,28 +1,25 @@
 <script setup lang="ts">
-import { useRouter, useRoute } from 'vue-router';
+import { useRoute } from 'vue-router';
 import axios from 'axios';
-import { isRef, onMounted, reactive, ref, watch } from 'vue';
-import DetailMap from '@/components/DetailMap.vue';
+import { onMounted, ref } from 'vue';
  
-
-const router = useRouter()
-const route = useRoute()
+const route = useRoute();
 
 // 詳細情報を保持
-const shop = ref({});
+const shop = ref<object>({});
 
 // idに一致する詳細情報を取得
-const getDetail = onMounted(() => {
+onMounted(() => {
 
-    const base_url = 'http://127.0.0.1:8080/items/detail/'
-    const id = '?id=' + route.params.id
-    const url = base_url + id
+    const base_url: string = 'http://127.0.0.1:8080/items/detail/';
+    const id: string = 'id=' + route.params.id;
+    const url: string = base_url + '?' + id;
     axios.get(url)
         .then(res => {
-            shop.value = res.data.results.shop[0]
+            shop.value = res.data.results.shop[0];
         })
         .catch(error => {
-            console.log(error)
+            console.log(error);
         })
 });
 </script>

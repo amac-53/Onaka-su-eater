@@ -1,17 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter, useRoute, RouterLink } from 'vue-router'
+import { useRoute, RouterLink } from 'vue-router';
 
-const emits = defineEmits<{(e: 'change', selected?: string): void}>();
+const emits = defineEmits<{(e: 'change', selected: string): void}>();
 
-const router = useRouter()
-const route = useRoute()
+const route = useRoute();
 
 // 初期値を近い順で設定
-const selected = "0"
+const selected = "0";
 
-const onChange = (selected?: string): void => {
-  console.log(selected);
+const onChange = (selected: string): void => {
   emits('change', selected);
 }
 </script>
@@ -28,7 +25,7 @@ const onChange = (selected?: string): void => {
           </nav>
         </div>
         <!-- 結果ページのみに示すソート順 -->
-        <div class="col-2 d-flex align-items-center" v-if="route.path == '/result'">
+        <div class="col-4 d-flex align-items-center justify-content-end" v-if="route.path == '/result'">
           <select v-model="selected" @change="onChange(selected)">
             <option disabled value="-1">並び順を選択してください</option>
             <option value="0">近い順</option>
