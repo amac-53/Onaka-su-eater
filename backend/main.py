@@ -1,6 +1,5 @@
-from fastapi import FastAPI, Response
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
 import requests
 import json
 import config
@@ -8,7 +7,6 @@ import config
 api_key = config.HOTPEPPER_API_KEY
 
 app = FastAPI()
-
 
 origins = [
     "*"
@@ -22,17 +20,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
-async def tmp():
-    return {"message": "Hello World"}
-
-
 @app.get("/items/")
 async def get_items(latitude: float = 0, longitude: float = 0, range: int = 1, count: int = 100, order: int = 0, keyword: str = ''):
     """
     現在地付近の店の情報を全て返す
     range: 現在地からの距離
     count: 店の数の上限
+    order: ソート順（0: 近い順，4:おすすめ順）
+    keyword: キーワード
     """
 
     range_list =  {300: 1, 500: 2, 1000: 3, 2000: 4, 3000: 5}
