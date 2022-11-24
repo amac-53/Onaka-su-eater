@@ -10,5 +10,13 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  // Docker環境下でviteを使用するための設定
+  server: {
+    host: true,
+    // 変更反映させるために
+    watch: {
+      usePolling: true
+    }
   }
 })

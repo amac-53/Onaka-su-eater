@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  frontend-dev:
+    container_name: "onakasu-eater-frontend-dev"
+    build: ./frontend
+    volumes:
+      - ./frontend:/frontend
+      # node_modulesは名前付きvolumeでマウントしないようにする
+      - front_node_modules:/frontend/node_modules
+    ports:
+      - 5173:5173
+    tty: true
+
+  backend-dev:
+    container_name: "onakasu-eater-backend-dev"
+    build: ./backend
+    volumes:
+      - ./backend:/backend
+    ports:
+      - 8080:8080
+    tty: true
+    
+    
+volumes:
+  front_node_modules:
+
+
+
+  

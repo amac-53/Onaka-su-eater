@@ -1,12 +1,8 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
-import Paginate from 'vuejs-paginate'
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router';
+import "bootstrap/dist/css/bootstrap.min.css";
 
-
-const app = createApp(App)
-// app.config.errorHandler = () => null;
-app.config.warnHandler = () => null;
-app.use(router)
-app.component('paginate', Paginate)
-app.mount('#app')
+const app = createApp(App);
+app.use(router);
+app.mount('#app');

@@ -1,44 +1,59 @@
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
-import axios from 'axios' 
-import pagination from "../components/Pagination.vue"
+import { ref, watchEffect } from 'vue';
+import { useRouter, useRoute, RouterLink } from 'vue-router';
+import axios from 'axios';
+import Pagination from "../components/Pagination.vue";
 
-const router = useRouter()
-const route = useRoute()
+const route = useRoute();
 
-// リストで受け取る
-const tables = reactive({
-  items: [],
-  num: 10
-})
+const props = defineProps(['value']);
+
+// 店舗一覧
+const items = ref<Array<object>>([]);
+// ページネーション
+const items_per_page: number = 10;
 
 // 現在地を受け取って，マウント時に一覧の情報を取得
-onMounted(() => {
-  // 店一覧のjsonを受け取る? それともデータ量だけまず？
-  // 緯度，経度，rangeを渡す（数字の処理はバックエンドで）
-  // 長さが1つのときはundefined? 0のときの処理は？
-  const base_url = 'http://127.0.0.1:8000/items/'
-  const latitude = '?latitude=' + route.query.latitude
-  const longitude = 'longitude=' + route.query.longitude
-  const range = 'range=' + route.query.range
-  const count = 'count=100'
-  const url = base_url + latitude + '&' + longitude + '&' + range + '&' + count 
-  axios.get(url)
+// ソート指定部分 (order) に変更があれば再度データ取得
+watchEffect(() => {
+  const base_url = 'http://127.0.0.1:8080/items/';
+
+  // クエリ
+  const latitude = 'latitude=' + route.query.latitude;
+  const longitude = 'longitude=' + route.query.longitude;
+  const range = 'range=' + route.query.range;
+  const count = 'count=100';
+  const order = 'order=' + props.value;
+  const kwd = 'keyword=' + route.query.keyword;
+
+  const url = base_url + '?' +latitude + '&' + longitude + '&' + range + '&' + count + '&' + kwd;
+  // 並び替えの指定があれば order を加えてデータ取得
+  axios.get((order == 'order=4' ? url + '&' + order : url))
   .then(res => {
-    // console.log(url);
-    console.log(res.data.results.shop)
-    tables.items = res.data.results.shop;
+    const tmp = order == 'order=4' ? url + '&' + order : url;
+    items.value = res.data.results.shop;
   })
   .catch(error => {
     console.log(error);
   }) 
 });
-
 </script>
 
+
 <template>
-<div class="paging">
-  <pagination :items="tables.items" :itemNumPerPage="tables.num" />
+<!-- 店舗一覧 -->
+<div v-if="items.length > 0" class="p-5">
+  <Pagination :items="items" :item_num_per_page="items_per_page" />
+</div>
+<!-- 店舗が一つもなければ -->
+<div v-else class="p-5 m-5">
+  <div class="d-flex justify-content-center m-5">
+    {{route.query.range}}m以内にお店はありません
+  </div>
+  <div class="d-flex justify-content-center">
+    <RouterLink to="/">
+      <button type="button" class="btn text-white" style="background-color: rgb(247 147 6);">homeに戻る</button>
+    </RouterLink>
+  </div>
 </div>
 </template>
